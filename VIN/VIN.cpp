@@ -22,6 +22,8 @@ void Filter()
 	imwrite("Gaussian.jpg", gauss_img);
 	namedWindow("Gaussian", CV_WINDOW_AUTOSIZE);
 	imshow("Gaussian", gauss_img);
+	//namedWindow("1", CV_WINDOW_AUTOSIZE);
+	//imshow("1", img);
 	waitKey();
 }
 ////Gray
@@ -71,28 +73,22 @@ void Mopho()
 	imwrite("erode.jpg", ero_img);
 	namedWindow("Erode", CV_WINDOW_AUTOSIZE);
 	imshow("Erode", ero_img);
-	waitKey();
+	//namedWindow("1", CV_WINDOW_AUTOSIZE);
+	//imshow("1", img);
 	ero_img.copyTo(morph_img);
+	waitKey();
 }
-//void Outl()
-//{
-//	vector<vector<Point>> contours;
-//	vector <Vec4i> hier;
-//	findContours(morph_img, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
-//	Mat contoursImage(morph_img.rows, morph_img.cols, CV_8U, Scalar(255));
-//	int index = 0;
-//	for (; index >= 0; index = hier[index][0])
-//	{
-//		Scalar color(rand() & 255, rand() & 255, rand() & 255);
-//		drawContours(contoursImage, contours, index, Scalar(0), 1, 8, hier);
-//		Rect rect = boundingRect(contours[index]);
-//		rectangle(contoursImage, rect, Scalar(0, 0, 255), 3);
-//	}
-//	imwrite("contours.jpg", contoursImage);
-//	namedWindow("Con", CV_WINDOW_AUTOSIZE);
-//	imshow("Con", contoursImage);
-//	waitKey();
-//}
+void Outl()
+{
+	vector<vector<Point>> contours;
+	//vector <Vec4i> hier;
+	findContours(morph_img, contours, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
+	drawContours(img, contours, -1, Scalar(0, 255, 0), 2);
+	imwrite("contours.jpg", img);
+	namedWindow("con", CV_WINDOW_AUTOSIZE);
+	imshow("con", img);
+	waitKey();
+}
 
 int main(int argc, char** argv)
 {
@@ -118,7 +114,7 @@ int main(int argc, char** argv)
 	//Morphology
 	Mopho();
 	//OutLine
-	//Outl();
+	Outl();
 
 	for (;;)
 	{
